@@ -1,0 +1,35 @@
+
+
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+EXErCise :D, {{ user.username|default:'Guest' }}!
+<hr>
+Available Exercises
+<table border="1">
+	<tr><td>id</td><td>name</td><td>details</td><td>File</td><td></td></tr>
+{% for exercise in exercises %}
+<tr>
+	<td>{{exercise.id}}</td>
+	<td>{{exercise.name}}</td>
+	<td>{{exercise.details}}</td>
+	<td><a href="../download/{{exercise.exFile}}">download file</a></td>
+	<td><a href="/submitedexercise/sendExercise/{{exercise.id}}">Post Exercise</a></td>
+
+</tr>
+{% endfor %}
+</table>
+<hr>
+{% for se in submitedExercises %}
+     <div>{{se.name}}</div> | <div>{{se.details}}</div>|<br>
+
+{% endfor %}
+
+
+{% endblock %}
+
+
+
