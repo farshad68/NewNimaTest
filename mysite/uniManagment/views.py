@@ -18,6 +18,15 @@ def dashboard(request):
 	args['role'] = 	whatIsRole(request.user.groups.all())
 
 	profiles = Profile.objects.all()
+	
+
+	uu = request.user;
+	for p in profiles :
+		if(p.user == uu):
+			if(p.isStudent == True):
+				args['isStudent'] = True
+			else:
+				args['isStudent'] = False
 
 	print(profiles)
 
@@ -38,7 +47,11 @@ def exerciseUpload(request):
 		upload = ExerciseCreate(request.POST, request.FILES)
 		if upload.is_valid():
 			ee = upload.save(commit=False)
-			ee.createBy = request.user
+			uu = request.user;
+			profiles = Profile.objects.all()
+			for p in profiles :
+				if(p.user == uu):
+					ee.createBy = p
 			ee.save()
 			return redirect('exerciseIndex')
 		else:
