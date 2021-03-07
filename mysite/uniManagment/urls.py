@@ -10,6 +10,7 @@ from uniManagment.views import sendExercise
 from uniManagment.views import submitedExerciseIndex
 
 from uniManagment.views import downloadExerciseFiles
+from uniManagment.views import downloadSubmitedExerciseFiles
 
 from django.conf.urls import include
 
@@ -20,6 +21,8 @@ urlpatterns = [
     url(r"^exercise/exerciseUpload", exerciseUpload, name="exerciseUpload"),
     url(r"^exercise/", exercise, name="exercise"),
     url(r"^submitedexercise/index", submitedExerciseIndex, name="submitedExerciseIndex"),
-	path("submitedexercise/sendExercise/<int:id>", sendExercise, name="sendExercise"),
+	path("submitedexercise/sendExercise/<int:ExeId>", sendExercise, name="sendExercise"),
 	path("download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
+	path("download/submitedExerciseFiles/<str:path>", downloadSubmitedExerciseFiles, name="downloadSubmitedExerciseFiles"),
+	url(r"^/", dashboard, name="dashboard"),
 ]

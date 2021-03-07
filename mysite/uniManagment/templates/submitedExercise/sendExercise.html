@@ -1,4 +1,45 @@
 <h2> sendExercise </h2>
 {{id}}
 
+ID:{{exe.id}}<br/>
+Name:{{exe.name}}<br/>
+Detail:{{exe.details}}
+
+<hr>
+Send here :
+
+<form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class = 'w-50 table table-light' style="border-radius:10px;background-color:#FFFF99;">          
+            
+            <tr>
+                <th>ExFile</th>
+                <td><input type="file" name="file" required id="id_file"></td>
+            </tr>
+            
+            <tr>
+                <th>Details</th>
+                <td><input type="text" name="details" maxlength="300" required id="id_details"></td>
+            </tr>
+
+            <!-- <input type="hidden" id="id_exe" name="exeId" value="{{exe.id}}"> -->
+            
+        </table>
+        <button type="submit" class="btn btn-lg btn-warning">Submit</button>
+    </form>
+<hr/>
+
+<form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class = 'w-50 table table-light' style="border-radius:10px;background-color:#FFFF99;">
+            {% for field in upload_form %}
+            <tr>
+                <th>{{field.label}}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit" class="btn btn-lg btn-warning">Submit</button>
+    </form>
+
 

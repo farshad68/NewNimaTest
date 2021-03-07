@@ -23,10 +23,20 @@ Available Exercises
 {% endfor %}
 </table>
 <hr>
-{% for se in submitedExercises %}
-     <div>{{se.name}}</div> | <div>{{se.details}}</div>|<br>
 
+<table border="1">
+	<tr><td>id</td><td>details</td><td>File</td><td>score</td></tr>
+{% for se in submitedExercise %}
+<tr>
+	<td>{{se.id}}</td>
+	<td>{{se.details}}</td>
+	<td><a href="../download/{{se.file}}">download file</a></td>
+	<td>{{se.score}}</td>
+
+</tr>
 {% endfor %}
+</table>
+
 
 
 {% endblock %}
