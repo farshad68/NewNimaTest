@@ -10,3 +10,7 @@ class SubmitExerciseCreate(forms.ModelForm):
     class Meta:
         model = SubmitedExercise
         fields = ['id','file','details']
+class SubmitScoreExerciseCreate(forms.ModelForm):
+	class Meta:
+		model = SubmitedExercise
+		fields = ['id','score']

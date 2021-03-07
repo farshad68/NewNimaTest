@@ -6,6 +6,7 @@ from .models import SubmitedExercise
 
 from .forms import ExerciseCreate
 from .forms import SubmitExerciseCreate
+from .forms import SubmitScoreExerciseCreate
 
 from django.http import HttpResponse
 
@@ -66,14 +67,39 @@ def exerciseUpload(request):
 
 def submitedExerciseIndex(request):
 	exercises = Exercise.objects.all()
-	submitedExercise = SubmitedExercise.objects.all()
-	print(exercises)
-	print(submitedExercise)
-	args = {}
-	args['submitedExercise']=submitedExercise;
-	args['exercises']=exercises;
+	upload = SubmitScoreExerciseCreate(request.POST, request.FILES)
+	print(request)
+	if request.method == 'POST':
+		
+		if upload.is_valid():
+			ee = upload.save(commit=False)
+			print(ee.id)
+			for se in exercises :
+				if(se.id == ee.id):
+					preSE = se
 
-	return render(request, 'submitedExercise/index.html', args)
+			ee.submitBy = preSE.submitBy
+			ee.exe = preSE.exe
+			ee.file = preSE.file
+			ee.details = preSE.details
+			ee.update()
+			return redirect('exerciseIndex')
+		else:
+			print(upload.errors)
+			print('GGGGGGGGGGGGGGGGGGGGGGGG')
+			return HttpResponse("""your form is wrong""")
+	else:
+		
+		exercises = Exercise.objects.all()
+		submitedExercise = SubmitedExercise.objects.all()
+		print(exercises)
+		print(submitedExercise)
+		args = {}
+		args['submitedExercise']=submitedExercise;
+		args['exercises']=exercises;
+		args['upload_form']=upload
+
+		return render(request, 'submitedExercise/index.html', args)
 
 def sendExercise(request,ExeId):
 	upload = SubmitExerciseCreate()

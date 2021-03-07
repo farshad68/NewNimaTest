@@ -25,10 +25,11 @@ Available Exercises
 <hr>
 
 <table border="1">
-	<tr><td>id</td><td>details</td><td>File</td><td>score</td></tr>
+	<tr><td>id</td><td>number</td><td>details</td><td>File</td><td>score</td></tr>
 {% for se in submitedExercise %}
 <tr>
 	<td>{{se.id}}</td>
+	<td>{{se.submitBy.studentNumber}}</td>
 	<td>{{se.details}}</td>
 	<td><a href="../download/{{se.file}}">download file</a></td>
 	<td>{{se.score}}</td>
@@ -37,6 +38,29 @@ Available Exercises
 {% endfor %}
 </table>
 
+
+
+<table border="1">
+	<tr><td>id</td><td>number</td><td>details</td><td>File</td><td>score</td></tr>
+{% for se in submitedExercise %}
+<tr>
+	<td>{{se.id}}</td>
+	<td>{{se.submitBy.studentNumber}}</td>
+	<td>{{se.details}}</td>
+	<td><a href="../download/{{se.file}}">download file</a></td>
+	<td>
+		<form method = 'POST' enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="hidden" id="id_exe" name="exeId" value="{{se.id}}">
+			<input value="{{se.score}}" type="text" name="details" maxlength="300" required id="id_details">
+			<button type="submit" class="btn btn-lg btn-warning">Submit</button>
+		</form>
+	
+	</td>
+
+</tr>
+{% endfor %}
+</table>
 
 
 {% endblock %}

@@ -25,4 +25,5 @@ urlpatterns = [
 	path("download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
 	path("download/submitedExerciseFiles/<str:path>", downloadSubmitedExerciseFiles, name="downloadSubmitedExerciseFiles"),
 	url(r"^/", dashboard, name="dashboard"),
+	path('', dashboard, name="dashboard"),
 ]
